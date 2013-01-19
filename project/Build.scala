@@ -17,7 +17,7 @@ object build extends Build{
       Opts.resolver.sonatypeReleases
     ),
     scalacOptions ++= Seq("-deprecation","-unchecked"),
-    scaladocBranch := "master",
+    scaladocBranch := "releases/0.6.0",
     scalacOptions in (Compile, doc) <++= (baseDirectory, scaladocBranch).map{ (bd, branch) =>
       Seq("-sourcepath", bd.getAbsolutePath, "-doc-source-url", "https://github.com/kmizu/jsonda/tree/" + branch + "€{FILE_PATH}.scala")
     },
