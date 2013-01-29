@@ -20,7 +20,8 @@ object build extends Build{
     ),
     libraryDependencies <+= scalaVersion(specs2),
     resolvers ++= Seq(
-      Opts.resolver.sonatypeReleases
+      Opts.resolver.sonatypeReleases,
+      "typesafe releases" at "http://typesafe.artifactoryonline.com/typesafe/releases"
     ),
     scalacOptions ++= Seq("-deprecation","-unchecked"),
     scalacOptions <++= scalaVersion.map{s =>
@@ -75,7 +76,7 @@ object build extends Build{
       publishArtifact := false, publish := {}, publishLocal := {}
     ) : _*
   ).aggregate(
-    core,json4s,lift,std
+    core,json4s,lift,std,play
   )
 
   lazy val core = Project(
@@ -115,6 +116,20 @@ object build extends Build{
     file("std")
   ).settings(
     baseSettings: _*
+  ).dependsOn(core)
+
+  lazy val play = Project(
+    "jsonda-play",
+    file("play")
+  ).settings(
+    baseSettings ++ Seq(
+      libraryDependencies <+= scalaVersion{ v =>
+        if(v.startsWith("2.9"))
+          "play" % "play_2.9.1" % "2.0.4"
+        else
+          "play" % "play_2.10" % "2.1-RC3"
+      }
+    ) : _*
   ).dependsOn(core)
 
 }

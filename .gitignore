@@ -17,4 +17,5 @@ core/target
 lift/target
 json4s/target
 std/target
-blueeyes/target
+play/target
+*.swp
