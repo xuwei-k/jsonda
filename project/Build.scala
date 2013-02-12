@@ -127,7 +127,7 @@ object build extends Build{
         if(v.startsWith("2.9"))
           "play" % "play_2.9.1" % "2.0.4"
         else
-          "play" % "play_2.10" % "2.1-RC3"
+          "play" % "play_2.10" % "2.1.0"
       }
     ) : _*
   ).dependsOn(core)
